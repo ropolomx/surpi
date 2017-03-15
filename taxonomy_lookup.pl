@@ -24,8 +24,8 @@ if ( @ARGV != 5 ) {
 
 my ($inputfile, $filetype, $seq_type, $cores, $database_directory) = @ARGV;
 
-my $sql_taxdb_loc_nucl = "$database_directory/gi_taxid_nucl.db";
-my $sql_taxdb_loc_prot = "$database_directory/gi_taxid_prot.db";
+my $sql_taxdb_loc_nucl = "$database_directory/acc_taxid_nucl.db";
+my $sql_taxdb_loc_prot = "$database_directory/acc_taxid_prot.db";
 my $names_nodes        = "$database_directory/names_nodes_scientific.db";
 my $begintime = [gettimeofday()];
 my $gi_table;
@@ -34,11 +34,11 @@ my $sql_taxdb_loc;
 my $basef_inputfile = $inputfile;
 $basef_inputfile =~ s{\.[^.]+$}{};
 
-# First, extract gi from SAM/BLAST inputfile
+# First, extract accession from SAM/BLAST inputfile
 if ($filetype eq "sam") {
-	system ("awk {'print \$3'} $inputfile | awk -F \"|\" {'print \$2'} > $basef_inputfile.gi");
+	system ("awk {'print \$3'} $inputfile | awk -F '[[:space:]]' {'print \$1'} > $basef_inputfile.gi");
 } elsif ($filetype eq "blast") {
-	system ("awk {'print \$2'} $inputfile | awk -F \"|\" {'print \$2'} > $basef_inputfile.gi");
+	system ("awk {'print \$2'} $inputfile | awk -F '[[:space:]]' {'print \$1'} > $basef_inputfile.gi");
 }
 
 if ($seq_type eq "nucl") {
