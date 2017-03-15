@@ -47,15 +47,15 @@ with open('nodes.dmp', 'r') as map_file:
 conn.commit()
 conn.close()
 
-# Create gi_taxid_nucl.db
-print ("Creating gi_taxid_nucl.db...")
-conn = sqlite3.connect('gi_taxid_nucl.db')
+# Create acc_taxid_nucl.db
+print ("acc_taxid_nucl.db...")
+conn = sqlite3.connect('acc_taxid_nucl.db')
 c = conn.cursor()
 c.execute('''CREATE TABLE gi_taxid (
 			gi INTEGER PRIMARY KEY,
 			taxid INTEGER)''')
 
-with open('gi_taxid_nucl.dmp', 'r') as map_file:
+with open('acc_taxid_nucl.dmp', 'r') as map_file:
 	for line in map_file:
 		line = line.split()
 		c.execute("INSERT INTO gi_taxid VALUES ("+line[0]+","+line[1]+")")
@@ -63,14 +63,14 @@ conn.commit()
 conn.close()
 
 # Create gi_taxid_prot.db
-print ("Creating gi_taxid_prot.db...")
-conn = sqlite3.connect('gi_taxid_prot.db')
+print ("Creating acc_taxid_prot.db...")
+conn = sqlite3.connect('acc_taxid_prot.db')
 c = conn.cursor()
 c.execute('''CREATE TABLE gi_taxid (
 			gi INTEGER PRIMARY KEY,
 			taxid INTEGER)''')
 
-with open('gi_taxid_prot.dmp', 'r') as map_file:
+with open('acc_taxid_prot.dmp', 'r') as map_file:
 	for line in map_file:
 		line = line.split()
 		c.execute("INSERT INTO gi_taxid VALUES ("+line[0]+","+line[1]+")")
